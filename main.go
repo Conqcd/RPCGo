@@ -1,9 +1,9 @@
 package main
 
-// import (
+import (
 // 	"errors"
 // 	"flag"
-// 	"fmt"
+	"fmt"
 // 	"log"
 // 	"time"
 
@@ -17,7 +17,7 @@ package main
 // 	addr     = flag.String("addr", "localhost:8972", "server address")
 // 	zkAddr   = flag.String("zkAddr", "localhost:2181", "zookeeper address")
 // 	basePath = flag.String("base", "/rpcx_test", "prefix path")
-// )
+)
 
 func main() {
 	// server := rpcx.NewServer()
@@ -32,4 +32,5 @@ func main() {
 	// server.Auth(fn)
 	// server.RegisterName("Arith", new(Arith))
 	// server.Serve("tcp", "127.0.0.1:8972")
+	fmt.Printf("hello, world\n")
 }
