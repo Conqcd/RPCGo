@@ -1,1 +1,4 @@
 .vscode
+femsolver
+libpetsc.so
+temp
