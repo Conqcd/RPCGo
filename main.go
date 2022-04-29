@@ -3,6 +3,7 @@ package main
 import (
 	// 	"errors"
 	// 	"flag"
+	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -19,22 +20,47 @@ import (
 // 	zkAddr   = flag.String("zkAddr", "localhost:2181", "zookeeper address")
 // 	basePath = flag.String("base", "/rpcx_test", "prefix path")
 // )
+type Args struct {
+	A, B int
+}
+
+type Quotient struct {
+	Quo, Rem int
+}
+
 type Arith int
 
-func (t *Arith) femsolver() {
+func (t *Arith) Femsolver(cxt context.Context, args *Args, reply *int) error {
+	*reply = args.A * args.B
 	binary, lookErr := exec.LookPath("mpiexec")
 	if lookErr != nil {
 		panic(lookErr)
 	}
-	args := []string{" -n 4", " ./femsolver", " ./temp/vo.txt"}
-	pro, err := os.StartProcess(binary, args, &os.ProcAttr{})
+	args2 := []string{" -n 4", " ./femsolver", " ./temp/vo.txt"}
+	pro, err := os.StartProcess(binary, args2, &os.ProcAttr{})
 	if err != nil {
 		fmt.Println(err)
-		return
+		return nil
 	}
-
 	fmt.Println("son ", pro.Pid)
+	return nil
 }
+
+// func (t *Arith) femsolver(cxt context.Context, args1 *Args, reply *int) error {
+// 	binary, lookErr := exec.LookPath("mpiexec")
+// 	if lookErr != nil {
+// 		panic(lookErr)
+// 	}
+// 	args := []string{" -n 4", " ./femsolver", " ./temp/vo.txt"}
+// 	pro, err := os.StartProcess(binary, args, &os.ProcAttr{})
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return nil
+// 	}
+
+// 	fmt.Println("son ", pro.Pid)
+// 	return nil
+// }
 
 func main() {
 	servers := server.NewServer()
